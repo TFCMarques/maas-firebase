@@ -1,6 +1,12 @@
 const functions = require("firebase-functions");
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
+const app = require("express")();
+
+const {
+  createService,
+} = require("./api/services");
+
+// SERVICES
+app.post("/services", createService);
+
+exports.api = functions.https.onRequest(app);
