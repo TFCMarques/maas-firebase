@@ -10,8 +10,14 @@ const {
   updateService,
   createService,
   deleteService,
-  runService,
 } = require("./api/services");
+
+const {
+  getAllServiceRuns,
+  createServiceRun,
+  updateServiceRunStatus,
+  updateServiceRunLogs,
+} = require("./api/runs");
 
 // Services
 app.get("/services", getAllServices);
@@ -21,12 +27,11 @@ app.post("/services", createService);
 app.delete("/services/:serviceId", deleteService);
 
 // Runs
-// app.get("/services/:serviceId/runs", getAllRuns);
+app.get("/services/:serviceId/runs", getAllServiceRuns);
 // app.get("/services/:serviceId/runs/:runId", getRun);
-// app.put("/services/:serviceId/runs/:runId", updateRun);
-// app.post("/services/:serviceId/runs", createRun);
+app.put("/services/:serviceId/runs/:runId/status", updateServiceRunStatus);
+app.put("/services/:serviceId/runs/:runId/log", updateServiceRunLogs);
+app.post("/services/:serviceId/runs", createServiceRun);
 // app.delete("/services/:serviceId/runs/:runId")
-
-app.get("/services/:serviceId/run", runService);
 
 exports.api = functions.https.onRequest(app);

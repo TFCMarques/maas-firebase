@@ -10,6 +10,8 @@ admin.initializeApp(/* {
   databaseURL: "https://maas-31124-default-rtdb.firebaseio.com",
 }*/);
 
+const endpoint = "http://localhost:5001/maas-31124/us-central1/api/";
 const db = admin.firestore();
+const FieldValue = admin.firestore.FieldValue;
 
-module.exports = {admin, db};
+module.exports = {admin, db, endpoint, FieldValue};

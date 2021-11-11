@@ -1,5 +1,4 @@
 const {db} = require("../util/config");
-const axios = require("axios");
 
 exports.getAllServices = (_, response) => {
   db.collection("services").orderBy("name", "asc").get().then((data) => {
@@ -9,9 +8,7 @@ exports.getAllServices = (_, response) => {
         uuid: doc.id,
         name: doc.data().name,
         description: doc.data().description,
-        hook: doc.data().hook,
         url: doc.data().url,
-        // runs: [{date: }]
       });
     });
     return response.json(services);
@@ -67,27 +64,6 @@ exports.deleteService = (request, response) => {
     }
     document.delete();
     return response.json({msg: "Successfully deleted service"});
-  }).catch((err) => {
-    console.error(err);
-    return response.status(500).json({error: err});
-  });
-};
-
-exports.runService = (request, response) => {
-  const document = db.collection("services").doc(`${request.params.serviceId}`);
-  document.get().then((doc) => {
-    if (!doc.exists) {
-      return response.status(404).json({error: "Service not found."});
-    }
-    axios({
-      method: doc.data().hook,
-      url: doc.data().url,
-    }).then((res) => {
-      return response.json({msg: `Successfully run service (ID: ${doc.id})`});
-    }).catch((err) =>{
-      console.error(err);
-      return response.status(500).json({error: err});
-    });
   }).catch((err) => {
     console.error(err);
     return response.status(500).json({error: err});
