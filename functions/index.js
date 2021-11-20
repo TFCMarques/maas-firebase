@@ -19,6 +19,11 @@ const {
   updateServiceRunLogs,
 } = require("./api/runs");
 
+const {
+  getTotalRunsCount,
+  // getRunsCountPerDay,
+} = require("./api/stats");
+
 // Services
 app.get("/services", getAllServices);
 app.get("/services/:serviceId", getService);
@@ -33,5 +38,9 @@ app.put("/services/:serviceId/runs/:runId/status", updateServiceRunStatus);
 app.put("/services/:serviceId/runs/:runId/log", updateServiceRunLogs);
 app.post("/services/:serviceId/runs", createServiceRun);
 // app.delete("/services/:serviceId/runs/:runId")
+
+// Stats
+app.get("/stats/services/runs/total", getTotalRunsCount);
+// app.get("/stats/services/runs/timestamped", getRunsCountPerDay);
 
 exports.api = functions.https.onRequest(app);

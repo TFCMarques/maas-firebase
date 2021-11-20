@@ -23,6 +23,7 @@ exports.getAllServiceRuns = (request, response) => {
 exports.createServiceRun = (request, response) => {
   const serviceId = request.params.serviceId;
   const document = db.collection("services").doc(`${serviceId}`);
+  document.set({runCount: FieldValue.increment(1)}, {merge: true});
   document.get().then((doc) => {
     if (!doc.exists) {
       return response.status(404).json({error: "Service not found."});
@@ -30,7 +31,7 @@ exports.createServiceRun = (request, response) => {
     const url = doc.data().url;
     const requestBody = doc.data().requestBody;
     const newRun = {
-      status: "Running",
+      status: "Starting",
       lastUpdated: new Date().toLocaleString(),
       logs: [],
     };

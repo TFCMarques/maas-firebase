@@ -8,6 +8,7 @@ exports.getAllServices = (_, response) => {
         uuid: doc.id,
         name: doc.data().name,
         description: doc.data().description,
+        httpMethod: doc.data().httpMethod,
         url: doc.data().url,
       });
     });
