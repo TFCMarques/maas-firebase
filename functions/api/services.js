@@ -1,4 +1,4 @@
-const {db} = require("../util/config");
+const {db} = require("../config");
 
 exports.getAllServices = (_, response) => {
   db.collection("services").orderBy("name", "asc").get().then((data) => {

@@ -1,4 +1,4 @@
-const {db, endpoint, FieldValue} = require("../util/config");
+const {db, endpoint, FieldValue} = require("../config");
 const axios = require("axios");
 
 exports.getAllServiceRuns = (request, response) => {

@@ -1,4 +1,4 @@
-const {db} = require("../util/config");
+const {db} = require("../config");
 
 exports.getTotalRunsCount = (_, response) => {
   let totalRuns = 0;
